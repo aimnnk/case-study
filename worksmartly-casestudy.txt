@@ -1,0 +1,208 @@
+//Requirement
+//1. As a User, I want to login.
+describe('As a User, I want to login.', () => {
+    it('Successfully login', () => {
+
+    //url
+    cy.visit('http://demo.com')
+    cy.contains('Login')
+    cy.get('#username').type('john.smith')
+    cy.get('#password').type('password')
+    cy.click('.input-login-btn')
+    })
+})  
+
+//2. As a User, I want to add/edit/create employees.
+describe('As a User, I want to add/edit/create employees', () => {
+    it('Successfully add/create employees.', () => {
+
+    //url
+    cy.visit('http://demo.com')
+    cy.title().should('Login')
+    cy.get('#username')
+        .type('john.smith')
+    cy.get('#password')
+        .type('password')
+        cy.click('.input-login-btn')
+    
+    cy.click('.input-add-employee')
+    cy.get('#emp_name').type('test1')
+    cy.get('#position').type('QA')
+    cy.get('#adress').select('KL')
+        .should('have.value', 'KL')
+    cy.get('#role')
+        .select('QA').should('have.value', 'QA')
+    cy.click('.input-add-employee-save-btn')
+    })
+
+    it('Successfully edit employees.', () => {
+
+    //url
+    cy.visit('http://demo.com')
+    cy.title().should('Login')
+    cy.get('#username')
+        .type('john.smith')
+    cy.get('#password')
+        .type('password')
+        cy.click('.input-login-btn')
+
+    cy.click('.input-edit-employee-1')
+
+    cy.get('#emp_name').clear()
+        .type('test2')
+
+    cy.get('#position').clear()
+        .type('Programmer')
+
+    cy.get('#adress').select('Selangor')
+        .should('have.value', 'Selangor')
+    cy.get('#role').select('Full Stack')
+        .should('have.value', 'Full Stack')
+
+    cy.click('.input-edit-employee-save-btn')
+    })
+})
+
+//3. As a User, I want to add/edit/create addresses.
+describe('As a User, I want to add/edit/create addresses', () => {
+    it('Successfully add/create addresses.', () => {
+
+    //url
+    cy.visit('http://demo.com')
+    cy.title().should('Login')
+    cy.get('#username')
+        .type('john.smith')
+    cy.get('#password')
+        .type('password')
+    cy.click('.input-login-btn')
+    
+    cy.click('.input-add-adress')
+    cy.get('#address1').type('test1')
+    cy.get('#address2').type('test2')
+    cy.get('#street').type('test3')
+    cy.get('#postcode').type('12345')
+    cy.get('#country').type('Malaysia')
+    cy.click('.input-add-address-save-btn')
+    })
+
+    it('Successfully edit addres.', () => {
+
+    //url
+    cy.visit('http://demo.com')
+    cy.title().should('Login')
+    cy.get('#username')
+        .type('john.smith')
+    cy.get('#password')
+        .type('password')
+        cy.click('.input-login-btn')
+
+    cy.click('.input-edit-address-1')
+
+    cy.get('#address1').clear()
+        .type('test4')
+
+    cy.get('#address2').clear()
+        .type('test5')
+
+    cy.get('#street').clear()
+        .type('test6')
+
+    cy.get('#postcode').clear()
+        .type('67890')
+
+    cy.get('#country').clear()
+        .type('Singapore')
+
+    cy.click('.input-edit-employee-save-btn')
+    })
+})
+
+//4. As a User, I want to assign address to employees.
+describe('As a User, I want to assign address to employees.', () => {
+    
+    it('Successfully assign address to employees.', () => {
+
+    //url
+    cy.visit('http://demo.com')
+    cy.title().should('Login')
+    cy.get('#username')
+        .type('john.smith')
+    cy.get('#password')
+        .type('password')
+        cy.click('.input-login-btn')
+
+    cy.click('.input-edit-employee-2')
+
+    cy.get('#adress').select('Johor')
+        .should('have.value', 'Johor')
+
+
+    cy.click('.input-edit-employee-2-save-btn')
+    })
+})
+
+
+//Bonus
+//1. As a User, I want to filter employees based on their addresses.
+describe('As a User, I want to filter employees based on their addresses.', () => {
+    
+    it('Successfully filter employees based on their addresses.', () => {
+
+    //url
+    cy.visit('http://demo.com')
+    cy.title().should('Login')
+    cy.get('#username')
+        .type('john.smith')
+    cy.get('#password')
+        .type('password')
+    cy.click('.input-login-btn')
+
+    cy.get('#filter')
+        .type('KL')
+        .trigger()
+    })
+})
+
+//2. As a User, I want to view historical deleted employees.
+describe('As a User, I want to view historical deleted employees.', () => {
+    
+    it('Successfully view historical deleted employees.', () => {
+
+    //url
+    cy.visit('http://demo.com')
+    cy.title().should('Login')
+    cy.get('#username')
+        .type('john.smith')
+    cy.get('#password')
+        .type('password')
+    cy.click('.input-login-btn')
+
+    cy.title().should('Employee Management App') 
+    cy.click('.input-remove-employee-btn')
+    })
+})
+
+//3. As a User, I want to assign roles to employees.
+describe('As a User, I want to assign roles to employees.', () => {
+    
+    it('Successfully assign roles to employees.', () => {
+
+    //url
+    cy.visit('http://demo.com')
+    cy.title().should('Login')
+    cy.get('#username')
+        .type('john.smith')
+    cy.get('#password')
+        .type('password')
+    cy.click('.input-login-btn')
+
+    cy.click('.input-edit-employee-3')
+
+    cy.get('#role').select('QA')
+        .should('have.value', 'QA')
+
+
+    cy.click('.input-edit-employee-3-save-btn')
+
+    })
+})
